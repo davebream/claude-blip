@@ -30,7 +30,7 @@ Restart Claude Code.
 | Model | opus, sonnet, haiku | dim |
 | Context | Usage bar + token count | green / yellow / red |
 
-The context bar scales to 80% — roughly where Claude starts compressing history.
+The context bar scales to 80% - roughly where Claude starts compressing history.
 
 Terminal too narrow? Segments drop from the left. Context bar stays.
 

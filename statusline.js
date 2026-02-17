@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// claude-blip — a single-file statusline for Claude Code
+// claude-blip - a single-file statusline for Claude Code
 // Shows: project │ branch │ model │ context usage
 
 const { execSync } = require("child_process");
@@ -117,7 +117,7 @@ function buildStatusline(input) {
     parts.push(ctx);
   }
 
-  // Truncate if wider than terminal — drops segments from the left
+  // Truncate if wider than terminal - drops segments from the left
   const sep = dim(" \u00B7 ");
   const cols = process.stdout.columns || 80;
   while (parts.length > 1 && stripAnsi(parts.join(sep)).length > cols) {
@@ -138,6 +138,6 @@ process.stdin.on("end", () => {
     const output = buildStatusline(input);
     process.stdout.write(output);
   } catch {
-    // Silent fail — a broken statusline should never interrupt your flow
+    // Silent fail - a broken statusline should never interrupt your flow
   }
 });

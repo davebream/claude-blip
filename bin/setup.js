@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// claude-blip setup — one command, done.
+// claude-blip setup - one command, done.
 //
 // Usage:
-//   npx claude-blip              (global — recommended)
+//   npx claude-blip              (global - recommended)
 //   npx claude-blip --project    (this project, shareable)
 //   npx claude-blip --local      (this project, gitignored)
 //   npx claude-blip --uninstall  (remove from all scopes)
@@ -62,7 +62,7 @@ function install() {
     try {
       settings = JSON.parse(fs.readFileSync(settingsPath, "utf8"));
     } catch {
-      // Corrupted settings — start fresh
+      // Corrupted settings - start fresh
     }
   }
 
@@ -124,7 +124,7 @@ function uninstallAll() {
   if (removed) {
     log(`${GREEN}${BOLD}blip${RESET} ${DIM}uninstalled${RESET}`);
   } else {
-    log(`${DIM}Nothing to remove — blip wasn't installed.${RESET}`);
+    log(`${DIM}Nothing to remove - blip wasn't installed.${RESET}`);
   }
   console.log();
 }
