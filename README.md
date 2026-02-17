@@ -40,32 +40,6 @@ Everything is dim except the task — your eyes go to the thing that matters.
 
 Terminal too narrow? Segments drop off the left. Context bar always stays.
 
-## Examples
-
-Normal — plenty of room:
-
-```
-Fixing auth bug · myapp · main · opus · ━━──────── 40K
-```
-
-Getting warm — yellow at 70%:
-
-```
-myapp · main · opus · ━━━━━━━─── 140K
-```
-
-Running hot — red at 90%, time to wrap up:
-
-```
-myapp · main · opus · ━━━━━━━━━─ 180K
-```
-
-No task, no git — it adapts:
-
-```
-scripts · sonnet · ━━━━──────  80K
-```
-
 ## Scopes
 
 ```sh
