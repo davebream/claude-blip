@@ -2,21 +2,16 @@
 
 # claude-blip
 
-**A single-file statusline for Claude Code.**
-*Zero dependencies. One command. Just a blip.*
+A minimal statusline for Claude Code. One file, zero dependencies.
 
 [![npm](https://img.shields.io/npm/v/claude-blip)](https://www.npmjs.com/package/claude-blip)
 [![install size](https://packagephobia.com/badge?p=claude-blip)](https://packagephobia.com/result?p=claude-blip)
-[![license](https://img.shields.io/npm/l/claude-blip)](LICENSE)
 
 ![variants](variants.gif)
 
-*dim when chill, yellow when warm, red when you should probably wrap up*
+*green when fresh, yellow when warm, red when you're cooked*
 
 </div>
-
-Four segments. No config files. No themes. No plugins.
-It just shows you what matters and gets out of the way.
 
 ## Install
 
@@ -24,64 +19,41 @@ It just shows you what matters and gets out of the way.
 npx claude-blip
 ```
 
-That's it. Restart Claude Code. Done.
+Restart Claude Code.
 
-## What you get
+## Segments
 
-| Segment | What it shows | Style |
-|---------|--------------|-------|
-| **Project** | Directory name | dim |
-| **Branch** | Current git branch | dim |
-| **Model** | opus, sonnet, haiku | dim |
-| **Context** | Usage bar + token count | green → yellow → red |
+| Segment | Shows | Style |
+|---------|-------|-------|
+| Project | Directory name | dim |
+| Branch | Current git branch | dim |
+| Model | opus, sonnet, haiku | dim |
+| Context | Usage bar + token count | green / yellow / red |
 
-Everything is dim except the context bar — your eyes go to the thing that matters.
+The context bar scales to 80% — roughly where Claude starts compressing history.
 
-Terminal too narrow? Segments drop off the left. Context bar always stays.
+Terminal too narrow? Segments drop from the left. Context bar stays.
 
 ## Scopes
 
 ```sh
-npx claude-blip              # global (recommended)
-npx claude-blip --project    # .claude/settings.json (shareable with team)
-npx claude-blip --local      # .claude/settings.local.json (just you)
-npx claude-blip --uninstall  # clean removal from all scopes
+npx claude-blip              # global (default)
+npx claude-blip --project    # .claude/settings.json (shareable)
+npx claude-blip --local      # .claude/settings.local.json (gitignored)
+npx claude-blip --uninstall  # clean removal
 ```
 
 ## How it works
 
-One file. ~150 lines. Node.js only (ships with Claude Code — nothing to install).
-
-Claude Code pipes session JSON to your statusline script via stdin. This script reads it, picks out the useful bits, formats them, writes one line to stdout. That's the whole thing.
-
-The context bar scales to 80% capacity — that's roughly where Claude starts compressing context, so 100% on the bar means "you're about to lose history."
+Claude Code pipes session JSON via stdin. This script reads it, formats one line, writes it to stdout. ~140 lines of Node.js.
 
 <details>
-<summary><strong>Debug mode</strong></summary>
+<summary>Debug mode</summary>
 
-Set `debug: true` in the CONFIG object at top of `statusline.js` to dump the full JSON payload to stderr:
-
-```js
-const CONFIG = {
-  debug: true,  // logs to stderr
-  // ...
-};
-```
+Set `debug: true` in the CONFIG object at top of `statusline.js` to dump the full JSON payload to stderr.
 
 </details>
 
-## Contributing
-
-Found a bug? Want a feature? PRs welcome. Keep it simple — the whole point is one file with zero dependencies.
-
 ## License
 
-MIT — do whatever you want with it.
-
----
-
-<div align="center">
-
-*Built for developers with mass context window anxiety.*
-
-</div>
+MIT
