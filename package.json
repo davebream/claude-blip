@@ -1,0 +1,26 @@
+{
+  "name": "claude-blip",
+  "version": "1.0.0",
+  "description": "A single-file statusline for Claude Code. Zero dependencies. Just a blip.",
+  "license": "MIT",
+  "author": "davebream",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davebream/claude-blip.git"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "statusline",
+    "status-bar",
+    "cli",
+    "developer-tools"
+  ],
+  "bin": {
+    "claude-blip": "bin/setup.js"
+  },
+  "files": [
+    "statusline.js",
+    "bin/setup.js"
+  ]
+}
