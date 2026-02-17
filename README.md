@@ -2,14 +2,12 @@
 
 # claude-blip
 
-A minimal statusline for Claude Code. One file, zero dependencies.
+*green when fresh, yellow when warm, red when you're cooked*
 
 [![npm](https://img.shields.io/npm/v/claude-blip)](https://www.npmjs.com/package/claude-blip)
 [![install size](https://packagephobia.com/badge?p=claude-blip)](https://packagephobia.com/result?p=claude-blip)
 
 ![variants](variants.gif)
-
-*green when fresh, yellow when warm, red when you're cooked*
 
 </div>
 

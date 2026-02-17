@@ -1,7 +1,7 @@
 {
   "name": "claude-blip",
   "version": "1.0.4",
-  "description": "A single-file statusline for Claude Code. Zero dependencies. Just a blip.",
+  "description": "A minimal statusline for Claude Code",
   "license": "MIT",
   "author": "davebream",
   "repository": {
