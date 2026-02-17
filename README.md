@@ -34,25 +34,15 @@ The context bar scales to 80% - roughly where Claude starts compressing history.
 
 Terminal too narrow? Segments drop from the left. Context bar stays.
 
-## Scopes
+## Uninstall
 
 ```sh
-npx claude-blip              # global (default)
-npx claude-blip --project    # .claude/settings.json (shareable)
-npx claude-blip --local      # .claude/settings.local.json (gitignored)
-npx claude-blip --uninstall  # clean removal
+npx claude-blip --uninstall
 ```
 
 ## How it works
 
 Claude Code pipes session JSON via stdin. This script reads it, formats one line, writes it to stdout. ~140 lines of Node.js.
-
-<details>
-<summary>Debug mode</summary>
-
-Set `debug: true` in the CONFIG object at top of `statusline.js` to dump the full JSON payload to stderr.
-
-</details>
 
 ## License
 
