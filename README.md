@@ -15,7 +15,7 @@
 
 </div>
 
-Five segments. No config files. No themes. No plugins.
+Four segments. No config files. No themes. No plugins.
 It just shows you what matters and gets out of the way.
 
 ## Install
@@ -30,13 +30,12 @@ That's it. Restart Claude Code. Done.
 
 | Segment | What it shows | Style |
 |---------|--------------|-------|
-| **Task** | What Claude is working on right now | **bold** |
 | **Project** | Directory name | dim |
 | **Branch** | Current git branch | dim |
 | **Model** | opus, sonnet, haiku | dim |
 | **Context** | Usage bar + token count | green → yellow → red |
 
-Everything is dim except the task — your eyes go to the thing that matters.
+Everything is dim except the context bar — your eyes go to the thing that matters.
 
 Terminal too narrow? Segments drop off the left. Context bar always stays.
 

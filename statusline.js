@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 // claude-blip — a single-file statusline for Claude Code
-// Shows: task │ project │ branch │ model │ context usage
+// Shows: project │ branch │ model │ context usage
 
 const { execSync } = require("child_process");
-const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
 // ─────────────────────────────────────────────────────────────
 // Config
@@ -23,7 +21,6 @@ const CONFIG = {
 // ─────────────────────────────────────────────────────────────
 const ANSI = {
   dim: "\x1b[2m",
-  bold: "\x1b[1m",
   reset: "\x1b[0m",
   green: "\x1b[38;5;108m",
   yellow: "\x1b[38;5;222m",
@@ -31,7 +28,6 @@ const ANSI = {
 };
 
 const dim = (s) => `${ANSI.dim}${s}${ANSI.reset}`;
-const bold = (s) => `${ANSI.bold}${s}${ANSI.reset}`;
 const color = (s, c) => `${c}${s}${ANSI.reset}`;
 const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, "");
 
@@ -50,39 +46,6 @@ function formatTokens(n) {
 // ─────────────────────────────────────────────────────────────
 // Data Fetchers
 // ─────────────────────────────────────────────────────────────
-
-function getCurrentTask(sessionId) {
-  if (!sessionId) return null;
-
-  const todosDir = path.join(os.homedir(), ".claude", "todos");
-  if (!fs.existsSync(todosDir)) return null;
-
-  try {
-    const files = fs
-      .readdirSync(todosDir)
-      .filter(
-        (f) =>
-          f.startsWith(sessionId) &&
-          f.includes("-agent-") &&
-          f.endsWith(".json"),
-      )
-      .map((f) => ({
-        name: f,
-        mtime: fs.statSync(path.join(todosDir, f)).mtime,
-      }))
-      .sort((a, b) => b.mtime - a.mtime);
-
-    if (files.length === 0) return null;
-
-    const todos = JSON.parse(
-      fs.readFileSync(path.join(todosDir, files[0].name), "utf8"),
-    );
-    const inProgress = todos.find((t) => t.status === "in_progress");
-    return inProgress?.activeForm || null;
-  } catch {
-    return null;
-  }
-}
 
 function getContextDisplay(ctxWindow) {
   const rawUsed = ctxWindow?.used_percentage;
@@ -121,21 +84,14 @@ function buildStatusline(input) {
   }
 
   const dir = data.workspace?.current_dir || process.cwd();
-  const sessionId = data.session_id || "";
 
   const parts = [];
 
-  // 1. Current task (bold — only segment that stands out)
-  const task = getCurrentTask(sessionId);
-  if (task) {
-    parts.push(bold(task));
-  }
-
-  // 2. Project name
+  // 1. Project name
   const project = path.basename(dir);
   parts.push(dim(project));
 
-  // 3. Git branch
+  // 2. Git branch
   try {
     const branch = execSync("git branch --show-current", {
       cwd: dir,
@@ -147,7 +103,7 @@ function buildStatusline(input) {
     // Not a git repo or git not available
   }
 
-  // 4. Model
+  // 3. Model
   const model = data.model?.display_name;
   if (model) {
     // Extract tier name: "Opus 4.6" → "opus", "Sonnet 4.5" → "sonnet"
@@ -155,13 +111,13 @@ function buildStatusline(input) {
     parts.push(dim(tier));
   }
 
-  // 5. Context window (bar + token count)
+  // 4. Context window (bar + token count)
   const ctx = getContextDisplay(data.context_window);
   if (ctx) {
     parts.push(ctx);
   }
 
-  // Truncate if wider than terminal — drops segments from the left (task first)
+  // Truncate if wider than terminal — drops segments from the left
   const sep = dim(" \u00B7 ");
   const cols = process.stdout.columns || 80;
   while (parts.length > 1 && stripAnsi(parts.join(sep)).length > cols) {
