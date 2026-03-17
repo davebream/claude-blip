@@ -39,6 +39,7 @@ const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, "");
  * Format token count (e.g., 12400 → "12.4K")
  */
 function formatTokens(n) {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1)}M`;
   if (n >= 1000) return `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}K`;
   return n.toString();
 }
@@ -108,7 +109,8 @@ function buildStatusline(input) {
   if (model) {
     // Extract tier name: "Opus 4.6" → "opus", "Sonnet 4.5" → "sonnet"
     const tier = model.split(/\s/)[0].toLowerCase();
-    parts.push(dim(tier));
+    const is1M = (data.context_window?.context_window_size || 0) >= 1_000_000;
+    parts.push(dim(is1M ? `${tier} 1m` : tier));
   }
 
   // 4. Context window (bar + token count)
